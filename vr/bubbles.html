@@ -2,7 +2,6 @@
   <head>
     <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
     <script src="https://unpkg.com/vue"></script>
-  <script src="js/tinycolor.js"></script>
 <script src="js/randomColor.js"></script>
   <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script> 
   <script src="https://unpkg.com/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
@@ -44,11 +43,10 @@ for (i=0;i<colors.length;i++) {
 colorArray.push(colorObject)
 }
 
-console.log(skyPink);
 
 Vue.component('my-sphere', {
       props: ['distance'],
-      template: '<a-sphere v-bind:color="color" v-on:click="clicked"  random-position  animation__yoyo="property: position; dir: alternate; dur: 10000; easing: easeOutQuart; loop: true; to: 0 0 -10"></a-sphere>',
+      template: '<a-sphere v-bind:color="color" random-position  animation__yoyo="property: position; dir: alternate; dur: 10000; easing: easeOutQuart; loop: true; to: 0 0 -10"></a-sphere>',
       computed: {
         pos () {
           return `${this.distance} 0 -4`;
@@ -62,12 +60,6 @@ Vue.component('my-sphere', {
       data: function(){
         return {
           color:"#EF2D5E"
-        }
-      },
-      methods: {
-        clicked: function(){
-      console.log('clicked')
-          // this.color="#00FF00"
         }
       }
     })
