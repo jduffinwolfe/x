@@ -1,0 +1,85 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+    <script src="https://unpkg.com/vue"></script>
+  <script src="js/tinycolor.js"></script>
+<script src="js/randomColor.js"></script>
+  <script src="https://unpkg.com/aframe-randomizer-components@^3.0.1/dist/aframe-randomizer-components.min.js"></script> 
+  <script src="https://unpkg.com/aframe-animation-component/dist/aframe-animation-component.min.js"></script>
+
+  </head>
+  <body>
+    <a-scene >
+      <a-sky color="#eda1ed"></a-sky>
+
+      <a-entity id="scene"  >
+          <my-sphere v-for="n in details" :key="n.count" v-bind:distance="n.count" v-bind:color="n.hex"></my-sphere>
+        </a-entity>
+      
+  </a-scene>
+    <script>
+
+var skyPink = randomColor({
+  hue:'pink',
+})
+
+var colors = randomColor({
+  hue:'pink',
+  
+  count: 100
+
+})
+
+
+var colorArray = []
+
+
+
+for (i=0;i<colors.length;i++) {
+  colorObject = {
+    hex: colors[i],
+    count: i
+  }
+
+colorArray.push(colorObject)
+}
+
+console.log(skyPink);
+
+Vue.component('my-sphere', {
+      props: ['distance'],
+      template: '<a-sphere v-bind:color="color" v-on:click="clicked"  random-position  animation__yoyo="property: position; dir: alternate; dur: 10000; easing: easeOutQuart; loop: true; to: 0 0 -10"></a-sphere>',
+      computed: {
+        pos () {
+          return `${this.distance} 0 -4`;
+        },
+        rad() {
+        theRadius = Math.floor(Math.random() * 3)  
+          return theRadius;
+        }
+      },
+
+      data: function(){
+        return {
+          color:"#EF2D5E"
+        }
+      },
+      methods: {
+        clicked: function(){
+      console.log('clicked')
+          // this.color="#00FF00"
+        }
+      }
+    })
+
+var theNumbers = [0,1,-1]
+var app =      new Vue({
+      el: '#scene',
+      data: {
+      details: colorArray
+
+      }
+    })
+</script>
+  </body>
+</html>
